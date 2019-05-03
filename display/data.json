@@ -1,0 +1,161 @@
+{
+"size" : "11",
+"black" : "Lord of the game",
+"white" : "ELGrande",
+"moves" : [
+{
+"row" : "-1",
+"column" : "-1",
+"color" : "NOT"
+},
+{
+"row" : "1",
+"column" : "1",
+"color" : "BLACK"
+},
+{
+"row" : "1",
+"column" : "2",
+"color" : "WHITE"
+},
+{
+"row" : "2",
+"column" : "1",
+"color" : "BLACK"
+},
+{
+"row" : "3",
+"column" : "1",
+"color" : "WHITE"
+},
+{
+"row" : "2",
+"column" : "2",
+"color" : "BLACK"
+},
+{
+"row" : "2",
+"column" : "3",
+"color" : "WHITE"
+},
+{
+"row" : "3",
+"column" : "3",
+"color" : "BLACK"
+},
+{
+"row" : "4",
+"column" : "4",
+"color" : "WHITE"
+},
+{
+"row" : "2",
+"column" : "4",
+"color" : "BLACK"
+},
+{
+"row" : "3",
+"column" : "4",
+"color" : "WHITE"
+},
+{
+"row" : "4",
+"column" : "5",
+"color" : "BLACK"
+},
+{
+"row" : "4",
+"column" : "2",
+"color" : "WHITE"
+},
+{
+"row" : "3",
+"column" : "5",
+"color" : "BLACK"
+},
+{
+"row" : "2",
+"column" : "5",
+"color" : "WHITE"
+},
+{
+"row" : "4",
+"column" : "6",
+"color" : "BLACK"
+},
+{
+"row" : "1",
+"column" : "3",
+"color" : "WHITE"
+},
+{
+"row" : "5",
+"column" : "7",
+"color" : "BLACK"
+},
+{
+"row" : "6",
+"column" : "8",
+"color" : "WHITE"
+},
+{
+"row" : "5",
+"column" : "6",
+"color" : "BLACK"
+},
+{
+"row" : "3",
+"column" : "6",
+"color" : "WHITE"
+},
+{
+"row" : "5",
+"column" : "5",
+"color" : "BLACK"
+},
+{
+"row" : "5",
+"column" : "8",
+"color" : "WHITE"
+},
+{
+"row" : "4",
+"column" : "7",
+"color" : "BLACK"
+},
+{
+"row" : "3",
+"column" : "7",
+"color" : "WHITE"
+},
+{
+"row" : "6",
+"column" : "5",
+"color" : "BLACK"
+},
+{
+"row" : "7",
+"column" : "5",
+"color" : "WHITE"
+},
+{
+"row" : "3",
+"column" : "8",
+"color" : "BLACK"
+},
+{
+"row" : "7",
+"column" : "4",
+"color" : "WHITE"
+},
+{
+"row" : "2",
+"column" : "9",
+"color" : "BLACK"
+}],
+"state" : "2",
+"win_move" : {
+"row" : "2",
+"column" : "9",
+"color" : "BLACK"
+}}

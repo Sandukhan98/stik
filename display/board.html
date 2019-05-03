@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <canvas id="myCanvas" width="1700" height="1100">
+        Your browser does not support the HTML5 canvas tag.</canvas>
+    <script type="text/javascript"
+        src="http://www.labri.fr/perso/renault/working/teaching/projets/files/projMapping.jquery.min.js"></script>
+    <script>
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+
+        var colors = new Array();
+        colors["BLACK"] = "#000000";
+        colors["WHITE"] = "#FFFFFF";
+        colors["GREEN"] = "#00FF00";
+        var names = [];
+        names["BLACK"] = "black";
+        names["WHITE"] = "white";
+        var size;
+        ctx.lineWidth = 5;
+        ctx.font = "30px Arial";
+        $.getJSON("http://localhost:9000/dataBrd.json", function (json) {
+            size = json.size;
+            console.log(size);
+            ctx.beginPath();
+
+            for (var i = 0; i < size; i++) {
+                ctx.fillText(i, 65 + 80 * i, 20);
+                ctx.moveTo(70 + 80 * i, 70);
+                ctx.lineTo(70 + 80 * i, 80 * (size - 1) + 70);
+                ctx.moveTo(70, 70 + 80 * i);
+                ctx.fillText(i, 2, 80 + 80 * i);
+                ctx.lineTo(80 * (size - 1) + 70, 70 + 80 * i);
+            }
+            ctx.strokeStyle = "#000000";
+            ctx.stroke();
+        });
+        setInterval(function(){
+            
+                $.getJSON("http://localhost:9000/dataBrd.json", function (json) {
+                    size = json.size;
+            console.log(size);
+            ctx.beginPath();
+
+            for (var i = 0; i < size; i++) {
+                ctx.fillText(i, 65 + 80 * i, 20);
+                ctx.moveTo(70 + 80 * i, 70);
+                ctx.lineTo(70 + 80 * i, 80 * (size - 1) + 70);
+                ctx.moveTo(70, 70 + 80 * i);
+                ctx.fillText(i, 2, 80 + 80 * i);
+                ctx.lineTo(80 * (size - 1) + 70, 70 + 80 * i);
+            }
+            ctx.strokeStyle = "#000000";
+            ctx.stroke();
+                for (var i = 0; i < json.moves.length; i++) {
+                ctx.fillStyle = colors[json.moves[i].color];
+                ctx.beginPath();
+                ctx.arc(70 + 80 * json.moves[i].column, 70 + 80 * json.moves[i].row, 30, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.strokeStyle = "#000000";
+                ctx.stroke();
+            }
+        });
+            },200);
+    </script>
+</body>
+
+</html>

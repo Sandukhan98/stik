@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+  <canvas id="myCanvas" width="1700" height="1100">
+    Your browser does not support the HTML5 canvas tag.</canvas>
+  <script type="text/javascript"
+    src="http://www.labri.fr/perso/renault/working/teaching/projets/files/projMapping.jquery.min.js"></script>
+  <script>
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+
+    var colors = new Array();
+    colors["BLACK"] = "#000000";
+    colors["WHITE"] = "#FFFFFF";
+    colors["GREEN"] = "#00FF00";
+    var names = [];
+    names["BLACK"] = "black";
+    names["WHITE"] = "white";
+    var size;
+    ctx.lineWidth = 5;
+    ctx.font = "30px Arial";
+
+    function equalJS(a, b) {
+      if (a.row == (-1)) return false;
+      if (a.row != b.row) return false;
+      if (a.column != b.column) return false;
+      if (!(a.color).localeCompare(b.color)) return false;
+      return true;
+    }
+    var disp;
+    var init = setInterval(function () {
+      $.getJSON("http://localhost:9000/data.json", function (json) {
+        if (json.state != 0) {
+          $.getJSON("http://localhost:9000/data.json", function (json) {
+            size = json.size;
+            console.log(size);
+            ctx.beginPath();
+
+            for (var i = 0; i < size; i++) {
+              ctx.fillText(i, 65 + 80 * i, 20);
+              ctx.moveTo(70 + 80 * i, 70);
+              ctx.lineTo(70 + 80 * i, 80 * (size - 1) + 70);
+              ctx.moveTo(70, 70 + 80 * i);
+              ctx.fillText(i, 2, 80 + 80 * i);
+              ctx.lineTo(80 * (size - 1) + 70, 70 + 80 * i);
+            }
+            ctx.strokeStyle = "#000000";
+            ctx.stroke();
+          });
+          disp = setInterval(function () {
+            $.getJSON("http://localhost:9000/data.json", function (json) {
+              for (var i = 1; i < json.moves.length - 1; i++) {
+                ctx.fillStyle = colors[json.moves[i].color];
+                ctx.beginPath();
+                ctx.arc(70 + 80 * json.moves[i].column, 70 + 80 * json.moves[i].row, 30, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.strokeStyle = "#000000";
+                ctx.stroke();
+              }
+              ctx.fillStyle = colors[json.moves[json.moves.length - 1].color];
+              ctx.beginPath();
+              ctx.arc(70 + 80 * json.moves[json.moves.length - 1].column, 70 + 80 * json.moves[json.moves.length - 1].row, 30, 0, 2 * Math.PI);
+              ctx.fill();
+              ctx.strokeStyle = "#0000FF";
+              ctx.stroke();
+              if (json.state == 2) {
+                ctx.fillStyle = colors[json.win_move.color];
+                ctx.strokeStyle = "#00FF00";
+                ctx.beginPath();
+                ctx.arc(70 + 80 * json.win_move.column, 70 + 80 * json.win_move.row, 30, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.stroke();
+                ctx.fillStyle = "#5C821A";
+                ctx.font = "bold 60px Arial";
+                ctx.beginPath();
+                ctx.fillText(json[names[json.win_move.color]], 1000, 250);
+                ctx.fillText("won the game !", 1000, 300);
+                clearInterval(disp);
+              }
+              else if (json.state == 3) {
+                ctx.fillStyle = colors[json.stupid_move.color];
+                ctx.strokeStyle = "#FF0000";
+                ctx.beginPath();
+                ctx.arc(70 + 80 * json.stupid_move.column, 70 + 80 * json.stupid_move.row, 30, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.stroke();
+                ctx.fillStyle = "#FF0000";
+                ctx.font = "bold 60px Arial";
+                ctx.beginPath();
+                ctx.fillText(json[names[json.stupid_move.color]], 1000, 250);
+                ctx.fillText("is stupid !", 1000, 300);
+                clearInterval(disp);
+              }
+              else if (json.state == 4) {
+                ctx.fillStyle = colors[json.last_move.color];
+                ctx.strokeStyle = "#0000FF";
+                ctx.beginPath();
+                ctx.arc(70 + 80 * json.last_move.column, 70 + 80 * json.last_move.row, 30, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.stroke();
+                ctx.fillStyle = "#0000FF";
+                ctx.font = "bold 60px Arial";
+                ctx.beginPath();
+                ctx.fillText("DRAW!", 1000, 300);
+                clearInterval(disp);
+              }
+            });
+          }, 200);
+          clearInterval(init);
+          ctx.fillStyle = colors["BLACK"];
+          ctx.beginPath();
+          ctx.arc(1000, 40, 30, 0, 2 * Math.PI);
+          ctx.fill();
+          ctx.fillText(json.black, 1050, 40);
+          ctx.strokeStyle = "#000000";
+          ctx.stroke();
+          ctx.fillStyle = colors["WHITE"];
+          ctx.beginPath();
+          ctx.arc(1000, 110, 30, 0, 2 * Math.PI);
+          ctx.fill();
+          ctx.strokeStyle = "#000000";
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.fillStyle = colors["BLACK"];
+          ctx.fillText(json.white, 1050, 110);
+          ctx.strokeStyle = "#000000";
+          ctx.stroke();
+        }
+      });
+    }, 200)
+
+  </script>
+</body>
+
+</html>
